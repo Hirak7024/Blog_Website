@@ -64,6 +64,7 @@ export default function Navbar() {
                   }}
                 >
                   <MenuItem>Profile</MenuItem>
+                  <MenuItem>Write</MenuItem>
                   <MenuItem>My Blogs</MenuItem>
                   <MenuItem
                   // onClick={handleLogout}
