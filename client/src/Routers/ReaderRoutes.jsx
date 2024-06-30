@@ -3,6 +3,11 @@ import { Routes, Route } from 'react-router-dom'
 import HomePage from '../Pages/HomePage'
 import Navbar from '../Components/Navbar'
 import Footer from '../Components/Footer'
+import Blogs from '../Pages/AllBlogs'
+import UserBlogs from '../Pages/UserBlogs'
+import CreateBlog from '../Pages/CreateBlog'
+import UpdateBlog from '../Pages/UpdateBlog'
+import Blog from '../Pages/Blog'
 
 export default function ReaderRoutes() {
   return (
@@ -12,6 +17,11 @@ export default function ReaderRoutes() {
       </div>
       <Routes>
         <Route path='/homepage' element={<HomePage />} />
+        <Route path='/allBlogs' element={<Blogs />} />
+        <Route path='/userblogs' element={<UserBlogs />} />
+        <Route path='/createBlog' element={<CreateBlog />} />
+        <Route path='/updateBlog' element={<UpdateBlog />} />
+        <Route path='/blog/:id' element={<Blog />} />
       </Routes>
       <div>
         <Footer />

@@ -2,8 +2,10 @@ import { Box, Grid } from '@mui/material'
 import React from 'react'
 import landscapeImg from "../Assets/Image.jpg"
 import Card from '../Components/Card'
+import { useNavigate } from 'react-router-dom'
 
 export default function HomePage() {
+    const navigate = useNavigate();
     return (
         <Grid container>
             <Box item xs={12} sx={{ backgroundImage: `url(${landscapeImg})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", height: "80vh", width: "100vw", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", color: "white", gap: "0.8rem" }}>

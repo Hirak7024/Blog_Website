@@ -1,10 +1,13 @@
 import { Grid, Button, Avatar } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import demoImage from "../Assets/Image1.jpg";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Card() {
+    const navigate=useNavigate();
+    
     return (
-        <div className='w-[19rem] flex flex-col gap-y-2 shadow-lg'>
+        <div onClick={()=>navigate("/blog/12")} className='w-[19rem] flex flex-col gap-y-2 shadow-lg'>
             <div className='w-full h-[10rem]'>
                 <img className='w-full h-full object-cover object-top' src={demoImage} alt="" />
             </div>

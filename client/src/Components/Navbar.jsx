@@ -1,7 +1,9 @@
 import { Avatar, Grid, Menu, MenuItem } from "@mui/material";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [isSignedIn, setIsSignedIn] = useState(true);
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -24,18 +26,19 @@ export default function Navbar() {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "1rem 2rem",
-        position:"absolute",
+        padding: "0.8rem 2rem",
+        position:"fixed",
         top:"0px",
-        left:"0px"
+        left:"0px",
+        zIndex:"100"
       }}
     >
       <Grid item>
-        <h1 className="cursor-pointer text-[22px] font-semibold">MyBlog</h1>
+        <h1 className="cursor-pointer text-[22px] font-semibold" onClick={()=>navigate("/homepage")}>MyBlog</h1>
       </Grid>
       <Grid item>
         <ul className="flex gap-[1.5rem] items-center">
-          <li className="cursor-pointer text-[15px]">Home</li>
+          <li className="cursor-pointer text-[15px]" onClick={()=>navigate("/homepage")}>Home</li>
           <li className="cursor-pointer text-[15px">Blogs</li>
           <li>
             {isSignedIn ? (
@@ -50,6 +53,8 @@ export default function Navbar() {
                     bgcolor: "royalblue",
                     color: "white",
                     cursor: "pointer",
+                    width:"2.2rem",
+                    height:"2.2rem",
                   }}
                 >
                   H
@@ -63,8 +68,8 @@ export default function Navbar() {
                     "aria-labelledby": "basic-button",
                   }}
                 >
-                  <MenuItem>Profile</MenuItem>
-                  <MenuItem>Write</MenuItem>
+                  <MenuItem >Profile</MenuItem>
+                  <MenuItem onClick={()=>navigate("/createBlog")}>Write</MenuItem>
                   <MenuItem>My Blogs</MenuItem>
                   <MenuItem
                   // onClick={handleLogout}
