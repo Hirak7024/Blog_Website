@@ -1,10 +1,11 @@
-const express=require('express')
-const router=express.Router()
-const User=require('../models/User')
-const bcrypt=require('bcrypt')
-const Post=require('../models/Post')
-const Comment=require('../models/Comment')
+const express = require('express')
+const router = express.Router()
+const User = require('../models/User')
+const bcrypt = require('bcrypt')
+const Post = require('../models/Post')
+const Comment = require('../models/Comment')
 const verifyToken = require('../verifyToken')
+const jwt = require('jsonwebtoken')
 
 
 //UPDATE
@@ -40,16 +41,30 @@ const verifyToken = require('../verifyToken')
 
 
 //GET USER
-router.get("/:id",async (req,res)=>{
-    try{
-        const user=await User.findById(req.params.id)
-        const {password,...info}=user._doc
+router.get("/:id", async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+        const { password, ...info } = user._doc
         res.status(200).json(info)
     }
-    catch(error){
+    catch (error) {
         res.status(500).json(error)
     }
 })
 
+//GET USER FROM TOKEN
+router.get("/decoded/token", async (req, res) => {
+    try {
+        const jwtToken = req.headers.authorization.split(" ")[1];
+        if(!jwtToken){
+            res.status(400).json({message:"Token no found"});
+        }
+        const decodedPayload = jwt.verify(jwtToken, process.env.JWT_KEY);
+        res.json({ user: decodedPayload });
+    } catch (error) {
+        res.status(401).json({ message: 'Unauthorized - Invalid token' });
+    }
+})
 
-module.exports=router
+
+module.exports = router
