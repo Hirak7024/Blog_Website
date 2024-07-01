@@ -4,6 +4,7 @@ import demoImage2 from "../Assets/Image2.jpg";
 import React, { useState } from 'react'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
+import Comments from '../Components/Comments';
 
 export default function Blog() {
     const navigate = useNavigate();
@@ -43,7 +44,7 @@ export default function Blog() {
                                 "aria-labelledby": "basic-button",
                             }}
                         >
-                            <MenuItem onClick={()=>navigate("/updateBlog")}>Edit</MenuItem>
+                            <MenuItem onClick={() => navigate("/updateBlog")}>Edit</MenuItem>
                             <MenuItem>Delete</MenuItem>
                         </Menu>
                     </div>
@@ -60,6 +61,9 @@ export default function Blog() {
                 </div>
                 <Grid item xs={12}>
                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit, doloribus, labore veritatis ipsum iste tempora voluptate numquam perspiciatis necessitatibus perferendis asperiores ea quia tempore odio, ut animi porro blanditiis cupiditate laborum voluptatem aliquid reprehenderit incidunt! Magni saepe veniam libero nostrum quo reiciendis, illo enim dolore maxime earum, ut quae atque, fugit natus dolorem! Quas soluta optio illum sequi sunt perferendis, sapiente distinctio officiis ab fuga at dolore expedita! Consequuntur doloribus ad iusto necessitatibus eum qui deleniti ratione fuga, sint, quis ex in atque libero blanditiis quibusdam reiciendis dignissimos voluptate ipsum natus. Labore vitae sed minima sit alias consequuntur quae enim pariatur, cumque, necessitatibus dolore nostrum magni illo? Eius excepturi, autem similique possimus dolorem obcaecati sapiente nisi ratione cum quibusdam. Nostrum vitae minus maxime, dolorum reprehenderit eius repudiandae omnis dolores similique, id est necessitatibus. Quam eligendi similique debitis? Esse numquam cupiditate velit voluptatum quisquam quas ab exercitationem, veniam quidem nobis necessitatibus, sunt sequi in dolores voluptate unde, laboriosam ducimus autem. Hic doloremque, nemo doloribus assumenda rem delectus alias quasi modi deserunt enim sit explicabo magnam laboriosam eos dolore soluta adipisci! Dicta necessitatibus laborum porro natus consequuntur rerum? Porro sapiente ab ipsa ea maxime, accusamus iure atque, sed error facilis delectus? Aliquam.</p>
+                </Grid>
+                <Grid item>
+                    <Comments />
                 </Grid>
             </Grid>
         </div>

@@ -39,7 +39,7 @@ export default function Navbar() {
       <Grid item>
         <ul className="flex gap-[1.5rem] items-center">
           <li className="cursor-pointer text-[15px]" onClick={()=>navigate("/homepage")}>Home</li>
-          <li className="cursor-pointer text-[15px">Blogs</li>
+          <li className="cursor-pointer text-[15px" onClick={()=>navigate("/allBlogs")}>Blogs</li>
           <li>
             {isSignedIn ? (
               <div>
@@ -70,7 +70,7 @@ export default function Navbar() {
                 >
                   <MenuItem >Profile</MenuItem>
                   <MenuItem onClick={()=>navigate("/createBlog")}>Write</MenuItem>
-                  <MenuItem>My Blogs</MenuItem>
+                  <MenuItem onClick={()=>navigate("/userblogs")} >My Blogs</MenuItem>
                   <MenuItem
                   // onClick={handleLogout}
                   >
