@@ -36,7 +36,7 @@ app.use(cookieParser())
 app.use("/api/auth", authRoute)
 app.use("/api/users",userRoute)
 app.use("/api/posts",postRoute)
-// app.use("/api/comments",commentRoute)
+app.use("/api/comments",commentRoute)
 
 //image upload
 const storage = multer.diskStorage({

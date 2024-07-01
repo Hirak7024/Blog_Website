@@ -61,14 +61,14 @@ router.put("/:id", verifyToken, async (req, res) => {
 router.delete("/:id", verifyToken, async (req, res) => {
     const user = await req.user;
     try {
-        const {userId} = await Post.findById(req.params.id);
-        if(userId.toString() !== user._id.toString()){
-            res.status(400).json({message:"You cannot delete this post"});
+        const { userId } = await Post.findById(req.params.id);
+        if (userId.toString() !== user._id.toString()) {
+            res.status(400).json({ message: "You cannot delete this post" });
         }
-        else{
+        else {
             await Post.findByIdAndDelete(req.params.id)
             await Comment.deleteMany({ postId: req.params.id })
-            res.status(200).json({message:"Post has been deleted!"})
+            res.status(200).json({ message: "Post has been deleted!" })
         }
 
     }
@@ -78,43 +78,63 @@ router.delete("/:id", verifyToken, async (req, res) => {
 })
 
 
-//GET POST DETAILS
+//GET POST DETAILS BY ID
 router.get("/:id", async (req, res) => {
     try {
         const post = await Post.findById(req.params.id)
         res.status(200).json(post)
     }
-    catch (err) {
-        res.status(500).json(err)
+    catch (error) {
+        res.status(500).json({ message: error.message })
     }
 })
 
 //GET POSTS
-router.get("/", async (req, res) => {
-    const query = req.query
+// router.get("/", async (req, res) => {
+//     const query = req.query
 
+//     try {
+//         const searchFilter = {
+//             title: { $regex: query.search, $options: "i" }
+//         }
+//         const posts = await Post.find(query.search ? searchFilter : null)
+//         res.status(200).json(posts)
+//     }
+//     catch (err) {
+//         res.status(500).json(err)
+//     }
+// })
+
+// GET USER POSTS
+router.post("/user", verifyToken, async (req, res) => {
+    const user = await req.user;
     try {
-        const searchFilter = {
-            title: { $regex: query.search, $options: "i" }
+        const userId = user._id;
+        const posts = await Post.find({ userId })
+        res.status(200).json(posts)
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
+
+// GET POSTS BY CATEGORY
+router.get("/getAll/posts" , async (req, res) => {
+    try {
+        const { category } = req.query;
+        
+        let posts;
+        if (category) {
+            posts = await Post.find({ category });
+        } else {
+            posts = await Post.find({});
         }
-        const posts = await Post.find(query.search ? searchFilter : null)
-        res.status(200).json(posts)
-    }
-    catch (err) {
-        res.status(500).json(err)
-    }
-})
 
-//GET USER POSTS
-router.get("/user/:userId", async (req, res) => {
-    try {
-        const posts = await Post.find({ userId: req.params.userId })
-        res.status(200).json(posts)
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
-    catch (err) {
-        res.status(500).json(err)
-    }
-})
+});
 
 
 
