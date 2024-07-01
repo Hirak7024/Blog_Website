@@ -8,15 +8,24 @@ const verifyToken = require('../verifyToken')
 
 //CREATE
 router.post("/create", verifyToken, async (req, res) => {
+    const user = await req.user;
     try {
-        const { title } = req.body;
+        const { title, desc, category, imageUrl } = req.body;
         const trimmedTitle = title.trim();
         const existingTitle = await Post.findOne({ title: trimmedTitle });
         if (existingTitle) {
             res.status(400).json({ message: "Title already exists. Please write another one" });
         }
         else {
-            const newPost = new Post(req.body);
+            const newPostData = {
+                title: trimmedTitle,
+                desc,
+                category,
+                imageUrl,
+                username: user.name,
+                userId: user._id
+            }
+            const newPost = new Post(newPostData);
             const savedPost = await newPost.save();
             res.status(200).json({ savedPost, message: "Post Created Successfully" });
         }
@@ -29,28 +38,42 @@ router.post("/create", verifyToken, async (req, res) => {
 
 //UPDATE
 router.put("/:id", verifyToken, async (req, res) => {
+    const user = await req.user;
     try {
-
-        const updatedPost = await Post.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
-        res.status(200).json(updatedPost)
+        const postId = req.params.id;
+        const { userId } = await Post.findById(postId);
+        if (userId.toString() !== user._id.toString()) {
+            res.status(400).json({ message: "You cannot edit this post" });
+        }
+        else {
+            const updatedPost = await Post.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+            res.status(200).json({ updatedPost, message: "Post Updated Successfully" })
+        }
 
     }
-    catch (err) {
-        res.status(500).json(err)
+    catch (error) {
+        res.status(500).json({ message: error.message })
     }
 })
 
 
 //DELETE
 router.delete("/:id", verifyToken, async (req, res) => {
+    const user = await req.user;
     try {
-        await Post.findByIdAndDelete(req.params.id)
-        await Comment.deleteMany({ postId: req.params.id })
-        res.status(200).json("Post has been deleted!")
+        const {userId} = await Post.findById(req.params.id);
+        if(userId.toString() !== user._id.toString()){
+            res.status(400).json({message:"You cannot delete this post"});
+        }
+        else{
+            await Post.findByIdAndDelete(req.params.id)
+            await Comment.deleteMany({ postId: req.params.id })
+            res.status(200).json({message:"Post has been deleted!"})
+        }
 
     }
-    catch (err) {
-        res.status(500).json(err)
+    catch (error) {
+        res.status(500).json({ message: error.message })
     }
 })
 
