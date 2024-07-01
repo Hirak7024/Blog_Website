@@ -1,12 +1,13 @@
 import { Button, Grid, TextField } from '@mui/material'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import landscapeImg from "../Assets/Image.jpg"
 
 const Register = () => {
     const navigate = useNavigate();
   return (
-    <div className='w-screen h-screen flex justify-center items-center'>
-     <form className='shadow-xl px-[1rem] py-[2rem]'>
+    <div className='w-screen h-screen flex justify-center items-center' style={{backgroundImage: `url(${landscapeImg})`, backgroundRepeat: "no-repeat", backgroundSize: "cover"}}>
+     <form className='shadow-xl px-[1rem] py-[2rem] bg-white rounded'>
         <Grid container xs={12} spacing={2} sx={{display:"flex" ,flexDirection:"column", width:"25rem"}}>
             <Grid item sx={{alignSelf:"center" , marginBottom:"0.5rem"}}>
                 <h1 className='text-[30px] font-bold text-gray-700'>Register</h1>

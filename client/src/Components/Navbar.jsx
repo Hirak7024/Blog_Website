@@ -68,7 +68,7 @@ export default function Navbar() {
                     "aria-labelledby": "basic-button",
                   }}
                 >
-                  <MenuItem >Profile</MenuItem>
+                  {/* <MenuItem >Profile</MenuItem> */}
                   <MenuItem onClick={()=>navigate("/createBlog")}>Write</MenuItem>
                   <MenuItem onClick={()=>navigate("/userblogs")} >My Blogs</MenuItem>
                   <MenuItem
