@@ -7,7 +7,7 @@ export default function Card() {
     const navigate=useNavigate();
     
     return (
-        <div onClick={()=>navigate("/blog/12")} className='w-[19rem] flex flex-col gap-y-2 shadow-lg'>
+        <div onClick={()=>navigate("/blog/12")} className='w-[19rem] flex flex-col gap-y-2 shadow-lg cursor-pointer'>
             <div className='w-full h-[10rem]'>
                 <img className='w-full h-full object-cover object-top' src={demoImage} alt="" />
             </div>
