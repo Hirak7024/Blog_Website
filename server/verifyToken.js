@@ -1,22 +1,26 @@
-const jwt=require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const User = require('./models/User');
 
-const verifyToken=(req,res,next)=>{
-    const token=req.cookies.token
-    // console.log(token)
-    if(!token){
-        return res.status(401).json("You are not authenticated!")
-    }
-    jwt.verify(token,process.env.SECRET,async (err,data)=>{
-        if(err){
-            return res.status(403).json("Token is not valid!")
+const verifyToken = async (req, res, next) => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
+        if (!token) {
+            return req.status(404).send({ error: "Token not found..." })
         }
-        
-        req.userId=data._id
-       
-        // console.log("passed")
-        
-        next()
-    })
+        const decodedToken = jwt.verify(token, process.env.JWT_KEY);
+        const userId = decodedToken._id;
+        // const user = await userService.findUserById(userId); 
+        const user = await User.findById(userId)
+        if (!user) {
+            throw new Error("User not found with id : ", userId);
+        }
+
+        req.user = user;
+
+    } catch (error) {
+        return res.status(500).send({ error: error.message });
+    }
+    next();  // calling the next middleware
 }
 
-module.exports=verifyToken
+module.exports = verifyToken;
