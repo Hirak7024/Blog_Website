@@ -124,7 +124,7 @@ router.get("/getAll/posts" , async (req, res) => {
         const { category } = req.query;
         
         let posts;
-        if (category) {
+        if (category !== "None") {
             posts = await Post.find({ category });
         } else {
             posts = await Post.find({});

@@ -27,8 +27,6 @@ export default function Navbar() {
     setAnchorEl(null);
   };
 
-  console.log(auth)
-
   const handleLogout=()=>{
     dispatch(logout());
     handleCloseUserMenu();
@@ -85,8 +83,8 @@ export default function Navbar() {
                     "aria-labelledby": "basic-button",
                   }}
                 >
-                  <MenuItem onClick={()=>navigate("/createBlog")}>Write</MenuItem>
-                  <MenuItem onClick={()=>navigate("/userblogs")} >My Blogs</MenuItem>
+                  <MenuItem onClick={()=>{navigate("/createBlog");handleCloseUserMenu()}}>Write</MenuItem>
+                  <MenuItem onClick={()=>{navigate("/userblogs");handleCloseUserMenu();}} >My Blogs</MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
               </div>

@@ -4,17 +4,17 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React, { useState } from 'react'
 
-export default function Comment() {
+export default function Comment({comment}) {
   const [commentEdit, setCommentEdit] = useState(false);
   
   return (
     <Grid conatiner sx={{display:"flex", gap:"0.5rem",position:"relative", top:"0px", left:"0px"}}>
       <Box>
-        <Avatar sx={{objectFit:"cover"}} src={demoImage}/>
+        <Avatar sx={{bgcolor:"purple", fontWeight:"500", width:"2rem", height:"2rem"}}>{comment?.author[0].toUpperCase()}</Avatar>
       </Box>
       <Box sx={{width:"100%",display:"flex", flexDirection:"column", gap:"0.4rem"}}>
-        <h1 className='text-base font-semibold'>Hirak Jyoti Das</h1>
-        {!commentEdit ? (<p className='text-sm opacity-70'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex minima fugit asperiores ea officia error ullam perspiciatis animi quam id provident ab, qui maiores molestias incidunt exercitationem nobis quia dolores vitae placeat, nulla quos! Eos necessitatibus vero numquam sed, ipsam inventore libero quod, a eligendi esse at officiis, itaque labore.</p>):
+        <h1 className='text-base font-semibold'>{comment?.author}</h1>
+        {!commentEdit ? (<p className='text-sm opacity-70'>{comment?.comment}</p>):
         (<Box sx={{display:"flex", flexDirection:"column", gap:"0.5rem"}}>
             <TextField 
             id="updatedComment"
