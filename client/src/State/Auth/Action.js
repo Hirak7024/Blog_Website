@@ -1,10 +1,12 @@
 import { API_BASE_URL } from "../../Config/apiConfig.js";
 import axios from "axios";
 import { GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "./ActionType.js";
+import { toast } from "react-toastify";
 
 const token = localStorage.getItem("jwt");
 
-export const register = (userData) => async (dispatch) => { 
+
+export const register = (userData) => async (dispatch) => {
     dispatch({ type: REGISTER_REQUEST })
     try {
         const response = await axios.post(`${API_BASE_URL}/api/auth/register`, userData);
@@ -13,8 +15,12 @@ export const register = (userData) => async (dispatch) => {
             localStorage.setItem("jwt", user.token);
         }
         dispatch({ type: REGISTER_SUCCESS, payload: user.token })
+        toast.success(user.message);
+        return true;   //Registration Success
     } catch (error) {
         dispatch({ type: REGISTER_FAILURE, payload: error.message })
+        toast.error(error.response.data.message);
+        return false; //Registration Failure
     }
 }
 
@@ -28,8 +34,12 @@ export const login = (userData) => async (dispatch) => {
             localStorage.setItem("jwt", user.token);
         }
         dispatch({ type: LOGIN_SUCCESS, payload: user.token })
+        toast.success(user.message);
+        return true;   //Registration Success
     } catch (error) {
         dispatch({ type: LOGIN_FAILURE, payload: error.message })
+        toast.error(error.response.data.message);
+        return false; //Registration Failure
     }
 }
 

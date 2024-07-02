@@ -16,7 +16,7 @@ export default function ReaderRoutes() {
         <Navbar />
       </div>
       <Routes>
-        <Route path='/homepage' element={<HomePage />} />
+        <Route path='/' element={<HomePage />} />
         <Route path='/allBlogs' element={<Blogs />} />
         <Route path='/userblogs' element={<UserBlogs />} />
         <Route path='/createBlog' element={<CreateBlog />} />
