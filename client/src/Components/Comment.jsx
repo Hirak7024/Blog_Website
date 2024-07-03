@@ -1,7 +1,7 @@
 import { Grid, Box, Avatar, TextField, Button } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { deleteComment, updateComment } from '../State/Comments/Action';
 
