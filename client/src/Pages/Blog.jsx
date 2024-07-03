@@ -4,7 +4,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate, useParams } from 'react-router-dom';
 import Comments from '../Components/Comments';
 import { useDispatch, useSelector } from 'react-redux';
-import { findPostById } from '../State/Posts/Action';
+import { deletePost, findPostById } from '../State/Posts/Action';
 import { format, parseISO } from 'date-fns';
 import { toast } from 'react-toastify';
 
@@ -34,13 +34,20 @@ export default function Blog() {
     const formattedDate = date ? format(date, 'MMMM do, yyyy') : '';
 
     const handleEdit = () => {
-        console.log("Auth is : ", auth)
-        if (auth?.jwt && auth?.user) {
+        if (auth?.user) {
             navigate(`/updateBlog/${params.id}`)
         }
         else {
             toast.error("You need to login first");
         }
+    }
+
+    const handleDelete = async() => {
+        const isSuccess = await dispatch(deletePost(params.id));
+        
+           if(isSuccess){
+            navigate("/");
+           }
     }
 
     return (
@@ -69,7 +76,7 @@ export default function Blog() {
                             }}
                         >
                             <MenuItem onClick={handleEdit}>Edit</MenuItem>
-                            <MenuItem>Delete</MenuItem>
+                            <MenuItem onClick={handleDelete}>Delete</MenuItem>
                         </Menu>
                     </div>
                 </Grid>

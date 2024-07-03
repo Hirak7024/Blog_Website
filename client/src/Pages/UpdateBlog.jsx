@@ -31,10 +31,10 @@ export default function UpdateBlog() {
     handlePostToUpdate();
   }, [])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log("New Post Data:", postData);
-    const isSuccess = dispatch(updatePost(params.id, postData));
+
+    const isSuccess = await dispatch(updatePost(params.id, postData));
     if(isSuccess){
       navigate(`/blog/${params.id}`)
     }

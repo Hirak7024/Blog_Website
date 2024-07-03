@@ -24,7 +24,7 @@ import { toast } from "react-toastify";
 export const createPost = (post) => async (dispatch) => {
   try {
     dispatch({ type: CREATE_POST_REQUEST });
-    const {data} = await api.post(`/api/posts/create`, post);
+    const { data } = await api.post(`/api/posts/create`, post);
     dispatch({ type: CREATE_POST_SUCCESS, payload: data });
     toast.success(data.message);
     return true;
@@ -44,18 +44,22 @@ export const updatePost = (postId, post) => async (dispatch) => {
     return true;
   } catch (error) {
     dispatch({ type: UPDATE_POST_FAILURE, payload: error.message });
-    toast.error(error.message);
+    toast.error(error.response.data.message);
     return false;
   }
 };
 
-export const deleteProduct = (postId) => async (dispatch) => {
+export const deletePost = (postId) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_POST_REQUEST });
     const { data } = await api.delete(`/api/posts/${postId}`);
     dispatch({ type: DELETE_POST_SUCCESS, payload: postId }); // in payload sending the productid so that in reducer, it can filter the product with this id
+    toast.success(data.message);
+    return true;
   } catch (error) {
     dispatch({ type: DELETE_POST_FAILURE, payload: error.message });
+    toast.error(error.response.data.message);
+    return false;
   }
 };
 
@@ -80,7 +84,7 @@ export const findPostById = (postId) => async (dispatch) => {
     const { data } = await api.get(`/api/posts/${postId}`);
 
     dispatch({ type: FIND_POST_BY_POST_ID_SUCCESS, payload: data });
-    console.log("Post By Id : ",data);
+    console.log("Post By Id : ", data);
     return true;
   } catch (error) {
     dispatch({ type: FIND_POST_BY_POST_ID_FAILURE, payload: error.message });

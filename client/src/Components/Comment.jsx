@@ -1,5 +1,4 @@
 import { Grid,Box, Avatar, TextField, Button } from '@mui/material'
-import demoImage from "../Assets/Image.jpg"
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React, { useState } from 'react'
