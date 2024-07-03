@@ -9,7 +9,7 @@ import { createComment, findCommentByPostId } from "../State/Comments/Action";
 export default function Comments({ postId }) {
     const [commentNo, setCommentNo] = useState(2);
     const dispatch = useDispatch();
-    const { comment } = useSelector(store => store);
+    const comment = useSelector(store => store.comment);
     const handleMoreCommentNo = () => {
         setCommentNo((currentCommentNo) => currentCommentNo + 2);
     }

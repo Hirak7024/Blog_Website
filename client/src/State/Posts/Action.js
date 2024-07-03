@@ -40,8 +40,12 @@ export const updatePost = (postId, post) => async (dispatch) => {
     dispatch({ type: UPDATE_POST_REQUEST });
     const { data } = await api.put(`/api/posts/${postId}`, post);
     dispatch({ type: UPDATE_POST_SUCCESS, payload: data });
+    toast.success(data.message);
+    return true;
   } catch (error) {
     dispatch({ type: UPDATE_POST_FAILURE, payload: error.message });
+    toast.error(error.message);
+    return false;
   }
 };
 
@@ -76,6 +80,7 @@ export const findPostById = (postId) => async (dispatch) => {
     const { data } = await api.get(`/api/posts/${postId}`);
 
     dispatch({ type: FIND_POST_BY_POST_ID_SUCCESS, payload: data });
+    console.log("Post By Id : ",data);
     return true;
   } catch (error) {
     dispatch({ type: FIND_POST_BY_POST_ID_FAILURE, payload: error.message });

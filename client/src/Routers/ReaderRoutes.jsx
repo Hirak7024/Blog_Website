@@ -20,7 +20,7 @@ export default function ReaderRoutes() {
         <Route path='/allBlogs' element={<Blogs />} />
         <Route path='/userblogs' element={<UserBlogs />} />
         <Route path='/createBlog' element={<CreateBlog />} />
-        <Route path='/updateBlog' element={<UpdateBlog />} />
+        <Route path='/updateBlog/:id' element={<UpdateBlog />} />
         <Route path='/blog/:id' element={<Blog />} />
       </Routes>
       <div>

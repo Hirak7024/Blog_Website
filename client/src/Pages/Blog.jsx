@@ -6,6 +6,7 @@ import Comments from '../Components/Comments';
 import { useDispatch, useSelector } from 'react-redux';
 import { findPostById } from '../State/Posts/Action';
 import { format, parseISO } from 'date-fns';
+import { toast } from 'react-toastify';
 
 export default function Blog() {
     const navigate = useNavigate();
@@ -14,7 +15,8 @@ export default function Blog() {
     const openUserMenu = Boolean(anchorEl);
 
     const dispatch = useDispatch();
-    const { post } = useSelector(store => store);
+    const post = useSelector(store => store.post);
+    const auth = useSelector(store => store.auth);
     const params = useParams();
 
     const handleUserClick = (event) => {
@@ -23,13 +25,23 @@ export default function Blog() {
     const handleCloseUserMenu = (event) => {
         setAnchorEl(null);
     };
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         dispatch(findPostById(params.id));
-    },[])
+    }, [])
 
     const date = post?.post?.createdAt ? parseISO(post.post.createdAt) : null;
     const formattedDate = date ? format(date, 'MMMM do, yyyy') : '';
+
+    const handleEdit = () => {
+        console.log("Auth is : ", auth)
+        if (auth?.jwt && auth?.user) {
+            navigate(`/updateBlog/${params.id}`)
+        }
+        else {
+            toast.error("You need to login first");
+        }
+    }
 
     return (
         <div className='w-screen flex flex-col items-center'>
@@ -56,14 +68,14 @@ export default function Blog() {
                                 "aria-labelledby": "basic-button",
                             }}
                         >
-                            <MenuItem onClick={() => navigate("/updateBlog")}>Edit</MenuItem>
+                            <MenuItem onClick={handleEdit}>Edit</MenuItem>
                             <MenuItem>Delete</MenuItem>
                         </Menu>
                     </div>
                 </Grid>
                 <Grid xs={12} sx={{ display: "flex", justifyContent: "space-between", padding: "0 2vw", alignItems: "center", marginTop: "1rem" }}>
                     <div className='flex items-center gap-x-2'>
-                        <Avatar sx={{ width: "2rem", height: "2rem" ,bgcolor:"purple", fontWeight:"500"}}>{post?.post?.username[0].toUpperCase()}</Avatar>
+                        <Avatar sx={{ width: "2rem", height: "2rem", bgcolor: "purple", fontWeight: "500" }}>{post?.post?.username[0].toUpperCase()}</Avatar>
                         <p className='text-base opacity-80 '>{post?.post?.username}</p>
                     </div>
                     <p className='text-base opacity-70'>{formattedDate}</p>
@@ -75,7 +87,7 @@ export default function Blog() {
                     <p>{post?.post?.desc}</p>
                 </Grid>
                 <Grid item>
-                    <Comments postId = {params.id}/>
+                    <Comments postId={params.id} />
                 </Grid>
             </Grid>
         </div>

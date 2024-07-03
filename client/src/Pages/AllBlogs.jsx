@@ -8,7 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 export default function AllBlogs() {
   const [category, setCategory] = useState("None");
   const dispatch = useDispatch();
-  const { post } = useSelector(store => store);
+  const post = useSelector(store => store.post);
 
   const handleCategory = (event) => {
     setCategory(event.target.value);

@@ -1,18 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Grid } from "@mui/material"
 import Card from '../Components/Card';
 import { useDispatch, useSelector } from 'react-redux';
 import { findPostByUserId } from '../State/Posts/Action';
 import { store } from '../State/store';
+import { useLocation } from 'react-router-dom';
 
 export default function UserBlogs() {
   const dispatch = useDispatch();
-  const { post } = useSelector(store => store);
+  const post = useSelector(store => store.post);
+  const auth = useSelector(store=>store.auth);
+  const jwt = localStorage.getItem("jwt");
+  const location = useLocation();
+
 
   useEffect(() => {
-    dispatch(findPostByUserId());
-    console.log("Post By User Id are:", post);
-  }, [])
+    if (auth?.user) {
+      dispatch(findPostByUserId());
+    }
+  }, [auth?.user]);
 
   return (
     <div className='mt-[6rem] pb-[2rem]'>

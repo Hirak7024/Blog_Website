@@ -10,7 +10,7 @@ export default function HomePage() {
     const category = "None";
     const navigate = useNavigate();
     const dispatch=useDispatch();
-    const {post} = useSelector(store=>store);
+    const post = useSelector(store=>store.post);
 
     useEffect(()=>{
         dispatch(getAllPosts(category))
