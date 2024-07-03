@@ -1,7 +1,7 @@
 import { Grid, Box, Avatar, TextField, Button } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { deleteComment, updateComment } from '../State/Comments/Action';
 
@@ -19,13 +19,13 @@ export default function Comment({ comment }) {
   }
 
   const handleUpdateSubmit = async() => {
-    console.log("Comment is : ",comment)
     const isSuccess = await dispatch(updateComment(comment._id, commentData))
     if(isSuccess){
       setCommentEdit(false);
     }
   }
 
+  
   const handleChange = (e) => {
     setCommentData(e.target.value);
   }

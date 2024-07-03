@@ -41,7 +41,7 @@ export default function AllBlogs() {
         </FormControl>
       </Grid>
       <Grid sx={{ width: "100vw", padding: "2rem 4rem", display: "grid", gridTemplateColumns: "repeat(3, 20rem)", justifyContent: "center", columnGap: "4rem", rowGap: "4rem" }}>
-        {
+        {post?.loading ? <CircularProgress sx={{marginLeft:"40vw"}}/> :
         post?.posts.map((item, index) =>
           <Card key={index} post={item} />
         )}

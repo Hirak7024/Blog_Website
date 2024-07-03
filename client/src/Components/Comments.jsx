@@ -8,23 +8,36 @@ import { createComment, findCommentByPostId } from "../State/Comments/Action";
 
 export default function Comments({ postId }) {
     const [commentNo, setCommentNo] = useState(2);
+    const [commentData, setCommentData] = useState({
+        comment :"",
+        postId: postId
+    })
     const dispatch = useDispatch();
     const comment = useSelector(store => store.comment);
+    
     const handleMoreCommentNo = () => {
         setCommentNo((currentCommentNo) => currentCommentNo + 2);
+    }
+
+    const handleChange=(e)=>{
+        setCommentData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const data = new FormData(event.currentTarget);
-        const commentData = {
-            comment: data.get("comment"),
-            postId: postId
-        };
+        // const data = new FormData(event.currentTarget);
+        // const commentData = {
+        //     comment: data.get("comment"),
+        //     postId: postId
+        // };
         try {
-            await dispatch(createComment(commentData)); // Await the createComment action
-            dispatch(findCommentByPostId(postId)); // Dispatch findCommentByPostId after createComment
+            const isSuccess = await dispatch(createComment(commentData)); 
+            if(isSuccess){
+                setCommentData({comment :"",postId: postId});
+                console.log("After comment created ", commentData);
+            }
+            dispatch(findCommentByPostId(postId)); 
         } catch (error) {
             console.error("Failed to create comment and fetch comments: ", error);
         }
@@ -50,6 +63,8 @@ export default function Comments({ postId }) {
                         variant="standard"
                         id="comment"
                         name="comment"
+                        value={commentData.comment}
+                        onChange={handleChange}
                         label="Write your comment"
                     />
                     <Button variant="contained" type="submit">
