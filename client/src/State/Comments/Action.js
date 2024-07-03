@@ -7,22 +7,26 @@ export const createComment = (commentData) => async (dispatch) => {
         dispatch({ type: CREATE_COMMENT_REQUEST });
         const { data } = await api.post(`/api/comments/create`, commentData);
         dispatch({ type: CREATE_COMMENT_SUCCESS, payload: data });
-        // toast.success(data.message);
-        // return true;
+        return true;
     } catch (error) {
         dispatch({ type: CREATE_COMMENT_FAILURE, payload: error.message });
-        // toast.error(error.response.data.message);
-        // return false;
+        toast.error(error.message);
+        return false;
     }
 };
 
 export const updateComment = (commentId, comment) => async (dispatch) => {
+    console.log("Comment Id and comment: ", commentId,comment)
     try {
         dispatch({ type: UPDATE_COMMENT_REQUEST });
-        const { data } = await api.put(`/api/comments/${commentId}`, comment);
-        dispatch({ type: UPDATE_COMMENT_SUCCESS, payload: data });
+        const { data } = await api.put(`/api/comments/${commentId}`, {comment:comment});
+        dispatch({ type: UPDATE_COMMENT_SUCCESS, payload: data.updatedComment });
+        console.log("Updated Comment : ", data.updatedComment);
+        return true;
     } catch (error) {
         dispatch({ type: UPDATE_COMMENT_FAILURE, payload: error.message });
+        toast.error(error.response.data.message);
+        return false;
     }
 };
 
@@ -33,6 +37,7 @@ export const deleteComment = (commentId) => async (dispatch) => {
         dispatch({ type: DELETE_COMMENT_SUCCESS, payload: commentId }); // in payload sending the productid so that in reducer, it can filter the product with this id
     } catch (error) {
         dispatch({ type: DELETE_COMMENT_FAILURE, payload: error.message });
+        toast.error(error.response.data.message);
     }
 };
 

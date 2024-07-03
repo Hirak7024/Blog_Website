@@ -1,4 +1,4 @@
-import { FIND_COMMENT_BY_POST_ID_FAILURE, FIND_COMMENT_BY_POST_ID_REQUEST, FIND_COMMENT_BY_POST_ID_SUCCESS } from "./ActionType";
+import { DELETE_COMMENT_SUCCESS, FIND_COMMENT_BY_POST_ID_FAILURE, FIND_COMMENT_BY_POST_ID_REQUEST, FIND_COMMENT_BY_POST_ID_SUCCESS, UPDATE_COMMENT_SUCCESS } from "./ActionType";
 
 
 
@@ -16,6 +16,17 @@ export const commentReducer = (state = initialState, action) => {
             return { ...state, loading: false, error: null, comments: action.payload };
         case FIND_COMMENT_BY_POST_ID_FAILURE:
             return { ...state, loading: false, error: action.payload };
+        case DELETE_COMMENT_SUCCESS:
+            return { ...state, loading: false, error: null, comments: state.comments.filter((comment) => comment._id !== action.payload) }
+        case UPDATE_COMMENT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                comments: state.comments.map(comment =>
+                    comment._id === action.payload._id ? action.payload : comment
+                )
+            };
 
         default:
             return state;
