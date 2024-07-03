@@ -26,14 +26,17 @@ const connectDB = async () => {
 dotenv.config()
 app.use(express.json())
 app.use(cors())
-    // {origin:"http://localhost:5173",credentials:true}
+// {origin:"http://localhost:5173",credentials:true}
 app.use("/api/auth", authRoute)
-app.use("/api/users",userRoute)
-app.use("/api/posts",postRoute)
-app.use("/api/comments",commentRoute)
+app.use("/api/users", userRoute)
+app.use("/api/posts", postRoute)
+app.use("/api/comments", commentRoute)
 
+app.get("/", (req, res) => {
+    res.send("Hi this is the server for Blog Application");
+})
 
-app.listen(process.env.PORT, async() => {
+app.listen(process.env.PORT, async () => {
     await connectDB()
     console.log("app is running on port " + process.env.PORT)
 })
