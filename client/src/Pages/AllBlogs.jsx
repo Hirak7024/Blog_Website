@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FormControl, Select, InputLabel, MenuItem, Grid } from "@mui/material"
+import { FormControl, Select, InputLabel, MenuItem, Grid,Typography } from "@mui/material"
 import Card from '../Components/Card';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPosts } from '../State/Posts/Action';
@@ -22,8 +22,8 @@ export default function AllBlogs() {
   const categoryList = ["None","Lifestye", "Technology", "Travel", "Business", "Economy", "Sports"];
   return (
     <div className='mt-[6rem] pb-[2rem]'>
-      <Grid sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0rem 3rem 0rem 5rem", }}>
-        <h1 className='text-[35px] font-semibold'>All Blogs</h1>
+      <Grid sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: {xs:"0rem 1rem" ,sm:"0rem 3rem 0rem 5rem"}, }}>
+        <h1 className='text-[25px] sm:text-[35px] font-semibold'>All Blogs</h1>
         <FormControl sx={{ width: "12rem" }}>
           <InputLabel id="demo-simple-select-label">Category</InputLabel>
           <Select
@@ -40,12 +40,33 @@ export default function AllBlogs() {
           </Select>
         </FormControl>
       </Grid>
-      <Grid sx={{ width: "100vw", padding: "2rem 4rem", display: "grid", gridTemplateColumns: "repeat(3, 20rem)", justifyContent: "center", columnGap: "4rem", rowGap: "4rem" }}>
-        {post?.loading ? <CircularProgress sx={{marginLeft:"40vw"}}/> :
-        post?.posts.map((item, index) =>
+      <Grid
+      sx={{
+        width: "100vw",
+        padding: "2rem 4rem",
+        display: "grid",
+        gridTemplateColumns: {xs:"repeat(1, 18rem)", sm:"repeat(2, 18rem)", lg: "repeat(3, 18rem)"},
+        justifyContent: "center",
+        columnGap: "4rem",
+        rowGap: "4rem"
+      }}
+    >
+      {post?.loading ? (
+        <CircularProgress sx={{marginLeft:"40vw"}}/>
+      ) : post?.error ? (
+        <Typography variant="h6" color="error">
+          {post.error}
+        </Typography>
+      ) : post?.posts?.length === 0 ? (
+        <Typography variant="h6">
+          No posts available
+        </Typography>
+      ) : (
+        post?.posts.map((item, index) => (
           <Card key={index} post={item} />
-        )}
-      </Grid>
+        ))
+      )}
+    </Grid>
     </div>
   )
 }

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import Comment from "./Comment";
 import { useDispatch, useSelector } from "react-redux";
 import { createComment, findCommentByPostId } from "../State/Comments/Action";
+import { toast } from "react-toastify";
 
 export default function Comments({ postId }) {
     const [commentNo, setCommentNo] = useState(2);
@@ -14,6 +15,7 @@ export default function Comments({ postId }) {
     })
     const dispatch = useDispatch();
     const comment = useSelector(store => store.comment);
+    const auth = useSelector(store=>store.auth);
     
     const handleMoreCommentNo = () => {
         setCommentNo((currentCommentNo) => currentCommentNo + 2);
@@ -25,21 +27,19 @@ export default function Comments({ postId }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        // const data = new FormData(event.currentTarget);
-        // const commentData = {
-        //     comment: data.get("comment"),
-        //     postId: postId
-        // };
-        try {
-            const isSuccess = await dispatch(createComment(commentData)); 
-            if(isSuccess){
-                setCommentData({comment :"",postId: postId});
-                console.log("After comment created ", commentData);
+        if(auth?.user){
+            try {
+                const isSuccess = await dispatch(createComment(commentData)); 
+                if(isSuccess){
+                    setCommentData({comment :"",postId: postId});
+                    console.log("After comment created ", commentData);
+                }
+                dispatch(findCommentByPostId(postId)); 
+            } catch (error) {
+                console.error("Failed to create comment and fetch comments: ", error);
             }
-            dispatch(findCommentByPostId(postId)); 
-        } catch (error) {
-            console.error("Failed to create comment and fetch comments: ", error);
+        }else{
+            toast.error("You need to login first")
         }
     };
 

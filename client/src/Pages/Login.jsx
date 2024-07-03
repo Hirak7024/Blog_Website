@@ -25,8 +25,8 @@ const Login = () => {
 
   return (
     <div className='w-screen h-screen flex justify-center items-center' style={{ backgroundImage: `url(${landscapeImg})`, backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
-      <form onSubmit={handleSubmit} className='shadow-xl px-[1rem] py-[2rem] bg-white rounded'>
-        <Grid container xs={12} spacing={2} sx={{ display: "flex", flexDirection: "column", width: "25rem" }}>
+      <form onSubmit={handleSubmit} className='shadow-xl px-[1rem] py-[2rem] bg-white rounded w-[20rem] sm:w-[25rem]'>
+        <Grid container xs={12} spacing={2} sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
           <Grid item sx={{ alignSelf: "center", marginBottom: "0.5rem" }}>
             <h1 className='text-[30px] font-bold text-gray-700'>Login</h1>
           </Grid>

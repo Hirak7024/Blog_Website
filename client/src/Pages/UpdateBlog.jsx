@@ -42,7 +42,7 @@ export default function UpdateBlog() {
 
   return (
     <div className='flex justify-center bg-orange-50 pt-[6rem] pb-[4rem]'>
-      <form onSubmit={handleSubmit} className='w-[60vw] px-[3rem] py-[2rem] border-2 border-gray-100 bg-white'>
+      <form onSubmit={handleSubmit} className='sm:w-[80vw] w-[90vw] px-[3rem] py-[2rem] border-2 border-gray-100 bg-white'>
         <Grid container spacing={2} sx={{ display: "flex", flexDirection: "column" }}>
           <Grid item sx={{ alignSelf: "center", marginBottom: "0.5rem" }}>
             <h1 className='text-[30px] font-bold text-gray-700'>Update Blog</h1>

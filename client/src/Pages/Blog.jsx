@@ -43,15 +43,19 @@ export default function Blog() {
     }
 
     const handleDelete = async() => {
-        const isSuccess = await dispatch(deletePost(params.id));
-        
-           if(isSuccess){
-            navigate("/");
-           }
+        if(auth?.user){
+            const isSuccess = await dispatch(deletePost(params.id));
+            if(isSuccess){
+                navigate("/");
+            }
+        }
+        else{
+            toast.error("You need to login first");
+        }
     }
 
     return (
-        <div className='w-screen flex flex-col items-center'>
+        <div className='w-full h-full flex flex-col items-center'>
             <Grid container spacing={3} sx={{ width: "70vw", padding: "6rem 0rem", display: "flex", flexDirection: "column" }}>
                 <Grid item xs={12}>
                     <p className='w-[9rem] h-[2.3rem] rounded flex items-center justify-center bg-blue-500 text-white text-base font-medium'>{post?.post?.category}</p>

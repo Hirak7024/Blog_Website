@@ -41,7 +41,7 @@ export default function Navbar() {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "0.8rem 4rem 0.8rem 2rem",
+        padding: { xs:"0.8rem 0.5rem" ,sm: "0.8rem 2rem"},
         position: "fixed",
         top: "0px",
         left: "0px",
