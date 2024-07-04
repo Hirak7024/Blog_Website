@@ -14,7 +14,7 @@ export default function Card({ post }) {
     }
 
     return (
-        <div onClick={handleClick} className='lg:w-[19rem] flex flex-col gap-y-2 shadow-lg cursor-pointer'>
+        <div onClick={handleClick} className='w-[18rem] flex flex-col gap-y-2 shadow-lg cursor-pointer'>
             <div className='w-full h-[10rem]'>
                 <img className='w-full h-full object-cover object-top' src={post?.imageUrl} alt="" />
             </div>

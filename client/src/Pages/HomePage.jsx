@@ -29,16 +29,14 @@ export default function HomePage() {
                         width: "100vw",
                         padding: "2rem 4rem",
                         display: "grid",
-                        gridTemplateColumns: {xs:"repeat(1, 18rem)", sm:"repeat(2, 18rem)", lg: "repeat(3, 18rem)"},
+                        gridTemplateColumns: { xs: "repeat(1, 18rem)", sm: "repeat(2, 18rem)", lg: "repeat(3, 18rem)" },
                         justifyContent: "center",
-                        // columnGap: "4rem",
-                        // rowGap: "4rem"
+                        columnGap: { xs: "2rem", md: "4rem" },
+                        rowGap: "4rem"
                     }}
-
-                    className='gap-x-[2rem] gap-y-[2rem] lg:gap-x-[4rem] lg:gap-y-[4rem]'
                 >
                     {post?.loading ? (
-                        <CircularProgress  sx={{marginLeft:"40vw"}}/>
+                        <CircularProgress sx={{ marginLeft: "35vw" }} />
                     ) : post?.error ? (
                         <Typography variant="h6" color="error">
                             {post.error}
@@ -48,7 +46,7 @@ export default function HomePage() {
                             No posts available
                         </Typography>
                     ) : (
-                        post?.posts.slice(0,6).map((item, index) => (
+                        post?.posts.slice(0, 6).map((item, index) => (
                             <Card key={index} post={item} />
                         ))
                     )}

@@ -47,12 +47,12 @@ export default function AllBlogs() {
         display: "grid",
         gridTemplateColumns: {xs:"repeat(1, 18rem)", sm:"repeat(2, 18rem)", lg: "repeat(3, 18rem)"},
         justifyContent: "center",
-        columnGap: "4rem",
-        rowGap: "4rem"
+        columnGap: {xs: "2rem", md:"4rem"},
+        rowGap: "4rem",
       }}
     >
       {post?.loading ? (
-        <CircularProgress sx={{marginLeft:"40vw"}}/>
+        <CircularProgress sx={{marginLeft:"35vw" }} />
       ) : post?.error ? (
         <Typography variant="h6" color="error">
           {post.error}
