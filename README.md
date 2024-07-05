@@ -37,6 +37,9 @@ The project is deployed and can be accessed [here](https://blog-website-lilac.ve
 ### User Blogs Page
 ![Screenshot (227)](https://github.com/Hirak7024/MERN-Blog-Application/assets/118119209/da857d07-4d9c-4504-9be4-f13b5b4d3f26)
 
+### Blog Page
+![Screenshot (229)](https://github.com/Hirak7024/MERN-Blog-Application/assets/118119209/aedde4dc-9431-4da8-b9ae-d3e82adf299b)
+
 ### Comments Section
 ![Screenshot (231)](https://github.com/Hirak7024/MERN-Blog-Application/assets/118119209/0fc0c77b-48dc-42ef-b646-bf5fc846a50f)
 
