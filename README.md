@@ -66,7 +66,7 @@ To run this project locally, follow these steps:
    ```env
    MONGO_URL = your_mongodb_connection_string
    JWT_KEY = your_jwt_secret
-   PORT = port_nnumber
+   PORT = port_number
    ```
 
 4. **Start the backend:**
