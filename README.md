@@ -64,9 +64,9 @@ To run this project locally, follow these steps:
 3. **Set up environment variables:**
    Create a `.env` file in the `server` directory and add the following variables:
    ```env
-   MONGO_URL=your_mongodb_connection_string
-   JWT_KEY=your_jwt_secret
-   PORT=PORT
+   MONGO_URL = your_mongodb_connection_string
+   JWT_KEY = your_jwt_secret
+   PORT = port_nnumber
    ```
 
 4. **Start the backend:**
