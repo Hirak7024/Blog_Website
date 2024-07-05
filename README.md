@@ -21,7 +21,7 @@ This project is a fully-featured blog website where users can register, log in, 
 - **State Management:** Redux
 
 ## Deployment
-The project is deployed and can be accessed [https://blog-website-lilac.vercel.app/](#).
+The project is deployed and can be accessed [here](https://blog-website-lilac.vercel.app/).
 
 ## Screenshots
 ### Homepage
